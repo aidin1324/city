@@ -5,6 +5,7 @@
   "main": "server.mjs",
   "scripts": {
     "build": "node scripts/scrape.mjs",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
     "prepare:deploy": "node scripts/prepare-deploy.mjs",
     "start": "node server.mjs"
   },
