@@ -1,0 +1,190 @@
+/* ================================================
+   NŪRA Performance Optimizations
+   Reduces paint/composite overhead on mobile
+   ================================================ */
+
+/* ─── GPU Compositing Hints ─── */
+/* Promote animated elements to own layer upfront */
+.horizontal_wrapper,
+.marquee_scroll,
+.cursor-marquee__card,
+.loading_logo_wrap,
+.loading-screen-bg,
+.hero_background_layout,
+.parallax_bg,
+.preview-follower {
+  will-change: transform;
+}
+
+/* Only apply will-change when animating, remove on mobile */
+@media (max-width: 991px) {
+  /* Remove expensive will-change on elements that don't animate on mobile */
+  .parallax_bg,
+  .cursor-marquee__card,
+  .preview-follower,
+  [data-float-1],
+  [data-float-2],
+  [data-float-3],
+  [data-float-4],
+  [data-float-5],
+  [data-float-6] {
+    will-change: auto;
+  }
+}
+
+/* ─── Disable heavy float animations on mobile ─── */
+@media (max-width: 767px) {
+  [data-float-1],
+  [data-float-2],
+  [data-float-3],
+  [data-float-4],
+  [data-float-5],
+  [data-float-6] {
+    animation: none !important;
+  }
+}
+
+/* ─── Reduce parallax complexity on mobile ─── */
+@media (max-width: 991px) {
+  .parallax_bg {
+    transform: none !important;
+  }
+  .parallax_bg_mask {
+    overflow: hidden;
+  }
+}
+
+/* ─── Hide cursor effects on touch devices ─── */
+@media (hover: none) {
+  .cursor-marquee {
+    display: none !important;
+  }
+  .preview-follower {
+    display: none !important;
+  }
+}
+
+/* ─── Optimize trail images on mobile ─── */
+@media (max-width: 991px) {
+  .trail_img {
+    overflow: hidden;
+  }
+  /* Trail section becomes simple CSS scroll strip on mobile */
+  .trail-wrap {
+    overflow: hidden;
+  }
+}
+
+/* ─── Contain repaints ─── */
+/* Limit repaint scope to specific containers */
+.hero_wrap,
+.video_wrap,
+.marquee_wrap,
+.walloflove_wrap,
+.testimonial_wrap {
+  contain: layout style;
+}
+
+/* ─── Reduce backdrop-filter cost on mobile ─── */
+@media (max-width: 767px) {
+  .hero_video_blur {
+    /* Backdrop filter is extremely expensive on mobile */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+/* ─── Video optimizations ─── */
+video {
+  /* Prevent invisible videos from consuming resources */
+  contain: strict;
+}
+
+/* ─── Image optimization hints ─── */
+/* Use content-visibility for off-screen sections */
+.about_wrap,
+.experiences_wrap,
+.marquee_wrap,
+.testimonial_wrap,
+.walloflove_wrap,
+.cta_wrap {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* ─── Reduce stagger on mobile marquee ─── */
+@media (max-width: 767px) {
+  /* Slightly faster marquee on mobile – less GPU time per frame */
+  [data-marquee-status] {
+    /* Marquee speed is controlled by JS data-marquee-speed attr;
+       CSS can't override it, but contain hints help. */
+    contain: layout style;
+  }
+}
+
+/* ─── Optimize gradient backgrounds ─── */
+.gradient-bg-new {
+  /* Gradients are cheap but contain them */
+  contain: strict;
+  pointer-events: none;
+}
+
+/* ─── Reduce transistion costs on low-end devices ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  [data-float-1],
+  [data-float-2],
+  [data-float-3],
+  [data-float-4],
+  [data-float-5],
+  [data-float-6] {
+    animation: none !important;
+  }
+}
+
+/* ─── Font rendering optimization ─── */
+body {
+  text-rendering: optimizeSpeed;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── Scrollbar optimization ─── */
+html {
+  overflow-x: hidden;
+}
+
+/* ─── Postcards / Stacked cards on mobile ─── */
+@media (max-width: 767px) {
+  .draggable-card {
+    /* Disable 3D transform overhead on mobile */
+    transform-style: flat !important;
+  }
+  /* Simplify stack cards */
+  .stack-cards__card {
+    transition: box-shadow 0.15s ease;
+  }
+}
+
+/* ─── Touchscroll optimization ─── */
+.menu_navigation,
+.horizontal,
+[data-lenis-prevent] {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* ─── Image placeholders to prevent layout shift ─── */
+.g_visual_wrap {
+  background-color: var(--_theme---background, #211510);
+}

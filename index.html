@@ -161,7 +161,7 @@ a[href*="webflow.com"].w-webflow-badge {
   window.addEventListener("load", removeBadges);
   new MutationObserver(removeBadges).observe(document.documentElement, { childList: true, subtree: true });
 })();
-</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Prata&amp;display=swap" rel="stylesheet"><link href="/city/assets/nura-media/brand/nura-overrides.css" rel="stylesheet" type="text/css"><link rel="preload" as="image" href="/city/assets/nura-media/images/wine.webp" data-nura-preload="1"><link rel="preload" as="image" href="/city/assets/nura-media/images/room.webp" data-nura-preload="2"></head><body data-page="home"><div class="page_wrap"><div class="page_code_wrap u-theme-dark"><div class="page_code_base w-embed"><style>
+</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null"><noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet"></noscript><link href="/city/assets/nura-media/brand/nura-overrides.css" rel="stylesheet" type="text/css"><link href="/city/assets/nura-media/brand/nura-performance.css" rel="stylesheet" type="text/css"><script src="/city/assets/nura-media/brand/nura-perf.js" defer></script><link rel="preload" as="image" href="/city/assets/nura-media/images/wine.webp" data-nura-preload="1"><link rel="preload" as="image" href="/city/assets/nura-media/images/room.webp" data-nura-preload="2"></head><body data-page="home"><div class="page_wrap"><div class="page_code_wrap u-theme-dark"><div class="page_code_base w-embed"><style>
 :root {
   --grid-breakout: [full-start] minmax(0, 1fr) [content-start] repeat(var(--site--column-count), minmax(0, var(--site--column-width))) [content-end] minmax(0, 1fr) [full-end];
   --grid-breakout-single: [full-start] minmax(0, 1fr) [content-start] minmax(0, var(--container--main)) [content-end] minmax(0, 1fr) [full-end];
@@ -362,8 +362,9 @@ div[data-accordion-status="active"] .accordion-css__item-bottom {
 }
 
 @keyframes float {
-  0%,{ transform: translateY(-15%); }
+  0% { transform: translateY(-15%); }
   50% { transform: translateY(15%); }
+  100% { transform: translateY(-15%); }
 }
 
 /* Applied to all photo-cards */
